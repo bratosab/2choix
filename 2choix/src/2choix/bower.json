@@ -1,0 +1,11 @@
+{
+  "name": "2choix",
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.5",
+    "bootstrap": "3.3.6",
+    "jquery-validation": "1.15.0",
+    "protonet/jquery.inview": "1.1.2",
+    "wow": "1.1.2"
+  }
+}
