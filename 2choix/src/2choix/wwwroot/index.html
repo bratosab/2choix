@@ -16,7 +16,11 @@
 
     <link href="lib/Icons/et-line-font/style.css" rel="stylesheet">
     <link href="lib/animate.css/animate.css" rel="stylesheet">
+    <link href="lib/morris.js/morris.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/spinners.css" rel="stylesheet">
+    <link href="css/animations.css" rel="stylesheet">
+    <link href="css/overrides.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -29,7 +33,7 @@
 <body>
     <!-- Chargement
     ============================================= -->
-    <div class="preloader"><i class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+    <div class="preloader"><span class="preloader-spinner"></span></div>
     <!-- Menu
     ============================================= -->
     <section class="main-header">
@@ -50,26 +54,50 @@
                             <li><a href="#question" class="page-scroll">Faire un choix</a></li>
                             <li><a href="#services" class="page-scroll">Résultats</a></li>
                             <li><a href="#ajout" class="page-scroll">Ajouter</a></li>
+                            <li><a href="#" class="hidden-md hidden-lg page-scroll">Paramètres</a></li>
                         </ul>
                     </div>
                     <div class="social-media hidden-sm hidden-xs">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="https://www.facebook.com/2Choixcom-171747526217858/" data-toggle="tooltip" data-placement="bottom" title="Page Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li data-toggle="tooltip" data-placement="bottom" title="Paramètres"><a href="#paramsModal" data-toggle="modal"><i class="fa fa-cogs"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
         <div id="question" ng-controller="ChoiceController as vm">
-            <div class="item" style="background-image: url(img/bg/1.jpg)">
-                <div class="caption">
-                    <h6></h6>
-                    <h1>Faites un <span>choix</span></h1>
-                    <a class="btn btn-light btn-big" ng-click="vm.choose(1)">{{ vm.choice.choice1 }}</a>
-                    <a class="btn btn-transparent btn-big" data-toggle="tooltip" title="Passer la question" ng-click="vm.choose(0)">OU</a>
-                    <a class="btn btn-light btn-big" ng-click="vm.choose(2)">{{ vm.choice.choice2 }}</a>
+            <div id="mainBanner" class="item">
+                <div class="container caption">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1>Faites un <span>choix</span></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a class="btn btn-light btn-big" ng-click="vm.choose(1)">{{ vm.choice.choice1 }}</a>
+                            <a class="btn btn-transparent btn-big" data-toggle="tooltip" data-placement="bottom" title="Passer la question" ng-click="vm.choose(0)">OU</a>
+                            <a class="btn btn-light btn-big" ng-click="vm.choose(2)">{{ vm.choice.choice2 }}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="opinion col-xs-12 col-md-offset-2 col-md-8">
+                            <ul>
+                                <li>
+                                    <a href="#" ng-click="vm.like()"><i ng-class="{'red' : vm.liked}" class="fa fa-heart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="J'aime!"></i></a>
+                                    <span class="text badge">{{ vm.choice.likes }}</span>
+                                </li>
+                                <li><a href="#" id="reportChoice" ng-click="vm.report()"><i ng-class="{'orange' : vm.reported}" class="fa fa-exclamation-triangle" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Signaler les choix"></i></a></li>
+                                <li><a style="display: inline-block; width:40px;"><spinner name="choiceSpinner" class="banner-spinner"></spinner></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div ng-if="vm.result.stat.show" class="stat col-xs-12 col-md-offset-2 col-md-8">
+                            <span class="bold" ng-class="vm.result.stat.cssclass">{{ vm.result.stat.value }}%</span> ont choisi comme vous!
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,29 +117,29 @@
 
     <!-- Résultats
     ============================================= -->
-    <section id="services">
+    <section id="services" ng-controller="ResultsController as vm">
         <div class="container">
-            <h2>Mes résultats</h2>
+            <h2>Vos résultats</h2>
             <hr class="light-sep">
             <p>Vous n'êtes pas tout a fait comme les autres</p>
             <div class="services-box">
                 <div class="row wow fadeInUp" data-wow-delay=".3s">
-                    <div class="col-md-4">
-                        <div class="media-left"><span class="icon-lightbulb"></span></div>
+                    <div class="col-md-6">
+                        <div class="media-left"><span class="icon-dial"></span></div>
                         <div class="media-body">
-                            <h3>Creative Design</h3>
-                            <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
+                            <h3>Choix effectués</h3>
+                            <h3>{{ vm.result.nbOfAnswers }} dont {{ vm.result.nbOfIgnores }} passés.</h3>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="media-left"><span class="icon-mobile"></span></div>
+                    <div class="col-md-6">
+                        <div class="media-left"><span class="icon-globe"></span></div>
                         <div class="media-body">
-                            <h3>Bootstrap</h3>
-                            <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
+                            <h3>Au total</h3>
+                            <h3> {{ vm.result.totalPercent }}% ont choisi comme vous.</h3>
                         </div>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="media-left"><span class="icon-compass"></span></div>
                         <div class="media-body">
                             <h3>Sass &amp; Compass</h3>
@@ -121,26 +149,10 @@
                     </div>
 
                     <div class="row wow fadeInUp" data-wow-delay=".6s">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="media-left"><span class="icon-adjustments"></span></div>
                             <div class="media-body">
                                 <h3>Easy To Customize</h3>
-                                <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="media-left"><span class="icon-tools"></span></div>
-                            <div class="media-body">
-                                <h3>Photoshop</h3>
-                                <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="media-left"><span class="icon-wallet"></span></div>
-                            <div class="media-body">
-                                <h3>Money Saver</h3>
                                 <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
                             </div>
 
@@ -155,25 +167,29 @@
 
     <!-- Ajouter question
     ============================================= -->
-    <section id="ajout">
+    <section id="ajout" ng-controller="ChoiceController as vm">
         <div class="container">
             <h2>Ajouter un choix</h2>
             <hr class="sep">
             <div class="col-md-6 col-md-offset-3 wow fadeInUp" data-wow-delay=".3s">
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="choix1" placeholder="Choix 1">
+                        <input type="text" class="form-control" id="choix1" placeholder="Choix 1" ng-model="vm.choice1">
                     </div>
                     <div class="form-group">
                         <h2>OU</h2>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="choix2" placeholder="Choix 2">
+                        <input type="text" class="form-control" id="choix2" placeholder="Choix 2" ng-model="vm.choice2">
                     </div>
-                    <div class="form-group">
-                        <input type="checkbox" class="form-control">Je ne suis pas un robot
+                    <div class="form-group" >
+                        <div style="margin: 0 auto; width: 304px;" 
+                             class="g-recaptcha" 
+                             data-sitekey="6Lc-QCcTAAAAAGiODSBsANh3n362xFNavEcKVZX9"
+                             data-theme="dark">
+                        </div>
                     </div>
-                    <a href="#" class="btn-block">Ajouter</a>
+                    <a ng-click="vm.add()" class="btn-block">Ajouter</a>
                 </form>
             </div>
         </div>
@@ -181,29 +197,59 @@
 
     <footer>
         <div class="container">
-            <h1>2choix.com</h1>
+            <h1>2Choix.com</h1>
             <div class="social">
                 <a href="#"><i class="fa fa-facebook fa-2x"></i></a>
                 <a href="#"><i class="fa fa-twitter fa-2x"></i></a>
                 <a href="#"><i class="fa fa-dribbble fa-2x"></i></a>
             </div>
-            <h6>&copy; 2016 2choix.com | par <a href="http://bratos.fr">bratos.fr</a></h6>
+            <h6>&copy; 2016 2Choix.com | par <a href="http://bratos.fr">bratos.fr</a></h6>
         </div>
     </footer>
 
+    <!-- Modal Params
+    ============================================= -->
+    <div id="paramsModal" class="modal fade" role="dialog" ng-controller="ParamsController as vm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Paramètres</h4>
+                </div>
+                <div class="modal-body">
+                    <p><a href="#" ng-click="vm.changeBg()" >Changer</a> l'image de fond.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
 
-    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-spinners/dist/angular-spinners.min.js"></script>
+    <script src="lib/angular-animate/angular-animate.min.js"></script>
+
     <script src="app/app.js"></script>
     <script src="app/choice/choice.controller.js"></script>
     <script src="app/choice/choice.service.js"></script>
+    <script src="app/params/params.controller.js"></script>
+    <script src="app/results/results.controller.js"></script>
+    <script src="app/results/results.service.js"></script>
+    <script src="app/services/bg.service.js"></script>
+    <script src="app/factories/resultdata.factory.js"></script>
 
-    <script src="js/custom.js"></script>
+    <script src="js/main.js"></script>
 
     <script src="js/jquery.easing.min.js"></script>
     <script src="lib/countTo/jquery.countTo.js"></script>
     <script src="lib/protonet/jquery.inview/jquery.inview.min.js"></script>
     <script src="lib/wow/dist/wow.min.js"></script>
+    <script src="lib/morris.js/morris.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 </html>

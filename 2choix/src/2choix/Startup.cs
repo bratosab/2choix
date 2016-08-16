@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace _2choix
 {
@@ -34,9 +35,11 @@ namespace _2choix
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ChoiceContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
-            services.AddSingleton<ITransactionRepository, TransactionRepository>();
+            services.AddSingleton<IChoiceRepository, ChoiceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +66,8 @@ namespace _2choix
             app.UseStaticFiles();
 
             app.UseMvc();
+
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }
