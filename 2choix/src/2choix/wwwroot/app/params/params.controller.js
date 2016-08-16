@@ -12,7 +12,7 @@
         var vm = this;
 
         //public methods
-
+        vm.loadBg = BgService.loadBg;
 
         activate();
 

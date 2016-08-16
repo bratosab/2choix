@@ -98,6 +98,15 @@ p {
     font-weight: bold;
 }
 
+/* Morris charts */
+.morris-chart {
+    height: 250px;
+}
+
+.morris-white text {
+    fill: #fff;
+}
+
 /* ==========================================================================
 Buttons Styles
 ========================================================================== */
@@ -282,7 +291,7 @@ Main banner
 #question .item .caption h1 {
   margin-top: 30px;
   margin-bottom: 25px;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 #question .item .caption h1 span {
   font-weight: 700;
@@ -355,43 +364,54 @@ Welcome Style
     /* ==========================================================================
 Services Style
 ========================================================================== */
-#services {
+#results {
   background: #24242a;
   padding: 60px 0;
   text-align: center;
 }
-#services h2 {
+#results h2 {
   color: #fff;
 }
-#services p {
+#results p {
   color: #fff;
 }
-#services .services-box {
+#results .results-box {
   margin-top: 40px;
 }
-#services .services-box .col-md-6 {
+#results .results-box .col-md-6 {
   margin-bottom: 20px;
 }
-#services .services-box .col-md-6 .media-left,
-#services .services-box .col-md-6 .media-right,
-#services .services-box .col-md-6 .media-body {
+#results .results-box .col-md-6 .media-left,
+#results .results-box .col-md-6 .media-right,
+#results .results-box .col-md-6 .media-body {
   padding-right: 30px;
   vertical-align: baseline;
 }
-#services .services-box .col-md-6 .media-left,
-#services .services-box .col-md-6 .media-right,
-#services .services-box .col-md-6 .media-body {
+#results .results-box .col-md-6 .media-left,
+#results .results-box .col-md-6 .media-right,
+#results .results-box .col-md-6 .media-body {
   text-align: left;
 }
-#services .services-box .col-md-6 .media-left h3,
-#services .services-box .col-md-6 .media-right h3,
-#services .services-box .col-md-6 .media-body h3 {
+#results .results-box .col-md-6 .media-left h3,
+#results .results-box .col-md-6 .media-right h3,
+#results .results-box .col-md-6 .media-body h3 {
   color: #fff;
   text-align: left;
 }
-#services .services-box .col-md-6 .media-left span,
-#services .services-box .col-md-6 .media-right span,
-#services .services-box .col-md-6 .media-body span {
+#results .results-box .col-md-6 .media-left h5,
+#results .results-box .col-md-6 .media-right h5,
+#results .results-box .col-md-6 .media-body h5 {
+  color: #fff;
+  text-align: left;
+  font-style: italic;
+}
+#results .results-box .col-md-6 .inline h3,
+#results .results-box .col-md-6 .inline h5 {
+  display: inline;
+}
+#results .results-box .col-md-6 .media-left span,
+#results .results-box .col-md-6 .media-right span,
+#results .results-box .col-md-6 .media-body span {
   font-size: 36px;
   color: #fff;
 }
@@ -549,7 +569,7 @@ Media Queries Style
   }
 
   /*-- Services --*/
-  #services h3 {
+  #results h3 {
     font-size: 22px;
   }
 

@@ -12,6 +12,12 @@
                 show: false,
                 cssclass: ""
             },
+            history: {
+                stats: []
+            },
+            callbacks: {
+                loadGraphs: undefined
+            },
             nbOfAnswers: 0,
             nbOfIgnores: 0,
             totalPercent: 0

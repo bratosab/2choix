@@ -10,8 +10,6 @@
     function ResultsService(ResultData) {
         this.doChoice = doChoice;
 
-        var choicesStat = [];
-
         function doChoice(choice, choiceNb) {
             ResultData.nbOfAnswers += 1;
             ResultData.stat.show = false;
@@ -33,10 +31,11 @@
             nbChoice++;
             nbTotal++;
 
-            choicesStat.push({ nbChoice: nbChoice, nbTotal: nbTotal });
-
             //Calculate current percentage
             var curPercent = Math.round((nbChoice) / (nbTotal) * 100);
+
+            //add to history
+            ResultData.history.stats.push({ nbChoice: nbChoice, nbTotal: nbTotal, percent: curPercent });
 
             ResultData.stat.value = curPercent;
 
@@ -52,12 +51,15 @@
 
             //Calculate total percentage
             var totNbChoice = 0, totNbTotal = 0;
-            _.forEach(choicesStat, function (obj) {
+            _.forEach(ResultData.history.stats, function (obj) {
                 totNbChoice += obj.nbChoice;
                 totNbTotal += obj.nbTotal;
             });
 
             ResultData.totalPercent = Math.round((totNbChoice) / (totNbTotal) * 100);
+
+            //Load graphs
+            ResultData.callbacks.loadGraphs();
         }
     }
 })();

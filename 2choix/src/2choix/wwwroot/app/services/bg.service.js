@@ -31,6 +31,7 @@
         function loadBg() {
             //timeout timer
             var timer;
+            var cachebuster = "?time=" + new Date().getTime();
 
             function clearTimer() {
                 if (timer) {
@@ -51,7 +52,7 @@
             var curImg = new Image();
 
             curImg.onload = function () {
-                $('#mainBanner').css("background-image", "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(https://source.unsplash.com/category/nature/1600x900)");
+                $('#mainBanner').css("background-image", "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(https://source.unsplash.com/category/nature/1600x900" + cachebuster + ")");
 
                 removePreloader();
             };
@@ -64,8 +65,11 @@
                 };
             }(curImg), 6000);
 
+            //Set default image
+            //$('#mainBanner').css("background-image", "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),url(/img/bg/1.jpg)");
+
             //start loading
-            curImg.src = "https://source.unsplash.com/category/nature/1600x900";
+            curImg.src = "https://source.unsplash.com/category/nature/1600x900" + cachebuster;
         }
     }
 })();

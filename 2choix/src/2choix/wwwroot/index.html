@@ -52,9 +52,9 @@
                     <div class="col-md-8 col-xs-12 nav-wrap">
                         <ul class="nav navbar-nav">
                             <li><a href="#question" class="page-scroll">Faire un choix</a></li>
-                            <li><a href="#services" class="page-scroll">Résultats</a></li>
+                            <li><a href="#results" class="page-scroll">Résultats</a></li>
                             <li><a href="#ajout" class="page-scroll">Ajouter</a></li>
-                            <li><a href="#" class="hidden-md hidden-lg page-scroll">Paramètres</a></li>
+                            <li><a href="#paramsModal" data-toggle="modal" class="hidden-md hidden-lg page-scroll">Paramètres</a></li>
                         </ul>
                     </div>
                     <div class="social-media hidden-sm hidden-xs">
@@ -71,7 +71,7 @@
                 <div class="container caption">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h1>Faites un <span>choix</span></h1>
+                            <h1>faites un <span>choix</span></h1>
                         </div>
                     </div>
                     <div class="row">
@@ -117,45 +117,40 @@
 
     <!-- Résultats
     ============================================= -->
-    <section id="services" ng-controller="ResultsController as vm">
+    <section id="results" ng-controller="ResultsController as vm">
         <div class="container">
             <h2>Vos résultats</h2>
             <hr class="light-sep">
-            <p>Vous n'êtes pas tout a fait comme les autres</p>
-            <div class="services-box">
+            <p>Vous n'êtes pas tout à fait comme les autres</p>
+            <div class="results-box">
                 <div class="row wow fadeInUp" data-wow-delay=".3s">
                     <div class="col-md-6">
                         <div class="media-left"><span class="icon-dial"></span></div>
                         <div class="media-body">
                             <h3>Choix effectués</h3>
-                            <h3>{{ vm.result.nbOfAnswers }} dont {{ vm.result.nbOfIgnores }} passés.</h3>
+                            <div class="inline"><h3>{{ vm.result.nbOfAnswers }}</h3> <h5>dont {{ vm.result.nbOfIgnores }} passé<i ng-if="vm.result.nbOfIgnores > 1">s</i></h5></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="media-left"><span class="icon-globe"></span></div>
                         <div class="media-body">
                             <h3>Au total</h3>
-                            <h3> {{ vm.result.totalPercent }}% ont choisi comme vous.</h3>
+                            <h3> {{ vm.result.totalPercent }}% ont choisi comme vous.</h3> 
                         </div>
 
                     </div>
                     <div class="col-md-6">
                         <div class="media-left"><span class="icon-compass"></span></div>
                         <div class="media-body">
-                            <h3>Sass &amp; Compass</h3>
-                            <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
+                            <h3>Evolution des choix</h3>
+                            <div id="evolution-line" class="morris-chart"><h5>Faites un choix pour voir les graphs</h5></div>
                         </div>
-
                     </div>
-
-                    <div class="row wow fadeInUp" data-wow-delay=".6s">
-                        <div class="col-md-6">
-                            <div class="media-left"><span class="icon-adjustments"></span></div>
-                            <div class="media-body">
-                                <h3>Easy To Customize</h3>
-                                <p>Fringilla augue at maximus vestibulum. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.</p>
-                            </div>
-
+                    <div class="col-md-6">
+                        <div class="media-left"><span class="icon-adjustments"></span></div>
+                        <div class="media-body">
+                            <h3>Parts des choix</h3>
+                            <div id="part-pie" class="morris-chart morris-white"><h5>Faites un choix pour voir les graphs</h5></div>
                         </div>
                     </div>
                 </div>
@@ -217,7 +212,7 @@
                     <h4 class="modal-title">Paramètres</h4>
                 </div>
                 <div class="modal-body">
-                    <p><a href="#" ng-click="vm.changeBg()" >Changer</a> l'image de fond.</p>
+                    <p><a href="#" ng-click="vm.loadBg()" >Changer</a> l'image de fond.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -249,6 +244,7 @@
     <script src="lib/countTo/jquery.countTo.js"></script>
     <script src="lib/protonet/jquery.inview/jquery.inview.min.js"></script>
     <script src="lib/wow/dist/wow.min.js"></script>
+    <script src="lib/raphael/raphael.min.js"></script>
     <script src="lib/morris.js/morris.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
