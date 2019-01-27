@@ -1,0 +1,8 @@
+version: '2'
+services:
+  nginx:
+    build:
+      context: ..
+      dockerfile: docker/nginx.dockerfile
+    ports:
+      - '8000:80'

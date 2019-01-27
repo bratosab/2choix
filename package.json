@@ -1,29 +1,25 @@
 {
-    "name": "2choix",
-    "version": "2.0.0",
-    "private": true,
-    "license": "MIT",
-    "scripts": {
-      "postinstall": "run-p install:api install:web",
-      "install:api": "cd api && npm install",
-      "install:web": "cd web && npm install",
-  
-      "start": "run-p start:api start:web",
-      "start:api": "npm run start --prefix api",
-      "start:web": "npm run start --prefix web",
-  
-      "build": "run-p build:api build:web",
-      "build:api": "cd api && npm run build && cd ..",
-      "build:web": "cd web && npm run build && cd ..",
-  
-      "prestart:docker": "npm run build",
-      "start:docker": "docker-compose -f docker/docker-compose.yml up -d --build",
-      "poststart:docker": "opn http://localhost:8000/",
-  
-      "stop:docker": "docker-compose -f docker/docker-compose.yml down"
-    },
-    "devDependencies": {
-      "npm-run-all": "^4.1.5",
-      "opn-cli": "^4.0.0"
-    }
+  "name": "2choix",
+  "version": "2.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "npm-run-all -p install:web",
+    "install:api": "cd api && npm install",
+    "install:web": "cd web && npm install",
+    "start": "npm-run-all -p start:web",
+    "start:api": "npm run start --prefix api",
+    "start:web": "npm run start --prefix web",
+    "build": "npm-run-all -p build:web",
+    "build:api": "cd api && npm run build && cd ..",
+    "build:web": "cd web && npm run build && cd ..",
+    "prestart:docker": "npm run build",
+    "start:docker": "docker-compose -f docker/docker-compose.yml up -d --build",
+    "poststart:docker": "opn http://localhost:8000/",
+    "stop:docker": "docker-compose -f docker/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "opn-cli": "^4.0.0"
   }
+}
