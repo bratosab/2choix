@@ -6,7 +6,7 @@ Application en production crée pour un showcase Angular7 & Web API .Net Core 2.
 
 Live app : http://www.2choix.com
 
-## Lancer du projet
+## Démarrer le projet
 
 Tous dabbord, installez toutes les dépendances
 
