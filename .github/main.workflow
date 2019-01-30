@@ -1,6 +1,6 @@
 workflow "Build and deploy web on push" {
   on = "push"
-  resolves = ["npm build:web"]
+  resolves = ["Deploy to Web App"]
 }
 
 action "npm install:web" {
