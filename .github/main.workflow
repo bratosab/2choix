@@ -22,7 +22,7 @@ action "Lint Web" {
 
 action "Azure Login" {
   uses = "Azure/github-actions/login@master"
-  needs = ["Build web"]
+  needs = ["Build Web"]
   env = {
     AZURE_SUBSCRIPTION = "Visual Studio Enterprise"
   }
