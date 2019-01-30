@@ -1,22 +1,28 @@
 workflow "Build and deploy web on push" {
   on = "push"
-  resolves = ["Deploy to Web App"]
+  resolves = ["Azure Deploy", "Lint Web"]
 }
 
-action "npm install:web" {
+action "Install Web" {
   uses = "actions/npm@master"
   args = "run install:web"
 }
 
-action "npm build:web" {
+action "Build Web" {
   uses = "actions/npm@master"
   args = "run build:web"
-  needs = ["npm install:web"]
+  needs = ["Install Web"]
+}
+
+action "Lint Web" {
+  needs = "Install Web"
+  uses = "actions/npm@master"
+  args = ["run lint:web"]
 }
 
 action "Azure Login" {
   uses = "Azure/github-actions/login@master"
-  needs = ["npm build:web"]
+  needs = ["Build web"]
   env = {
     AZURE_SUBSCRIPTION = "Visual Studio Enterprise"
   }
@@ -27,7 +33,7 @@ action "Azure Login" {
   ]
 }
 
-action "Deploy to Web App" {
+action "Azure Deploy" {
   uses = "Azure/github-actions/webapp@master"
   needs = ["Azure Login"]
   env = {
