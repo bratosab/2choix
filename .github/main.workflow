@@ -1,4 +1,4 @@
-workflow "Build Web" {
+workflow "Build and deploy web on push" {
   on = "push"
   resolves = ["npm build:web"]
 }
@@ -14,17 +14,17 @@ action "npm build:web" {
   needs = ["npm install:web"]
 }
 
-workflow "Debloy Web to Azure" {
-  on = "push"
-  resolves = ["Azure Login"]
-}
-
 action "Azure Login" {
   uses = "Azure/github-actions/login@master"
+  needs = ["npm build:web"]
   env = {
     AZURE_SUBSCRIPTION = "Visual Studio Enterprise"
   }
-  secrets = ["AZURE_SERVICE_APP_ID", "AZURE_SERVICE_PASSWORD", "AZURE_SERVICE_TENANT"]
+  secrets = [
+    "AZURE_SERVICE_APP_ID",
+    "AZURE_SERVICE_PASSWORD",
+    "AZURE_SERVICE_TENANT",
+  ]
 }
 
 action "Deploy to Web App" {
