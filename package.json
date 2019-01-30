@@ -13,6 +13,7 @@
     "build": "npm-run-all -p build:web",
     "build:api": "cd api && npm run build && cd ..",
     "build:web": "cd web && npm run build && cd ..",
+    "lint:web": "cd web && npm run lint && cd ..",
     "prestart:docker": "npm run build",
     "start:docker": "docker-compose -f docker/docker-compose.yml up -d --build",
     "poststart:docker": "opn http://localhost:8000/",
