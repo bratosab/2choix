@@ -2,7 +2,7 @@
 
 ### Faites votre choix entre deux choix intéressant et recevez des statistiques sur vos préférences!
 
-Application en production crée pour un showcase Angular7 & Web API .Net Core 2.2
+Application en production crée pour un showcase Angular 7 & Loopback 4
 
 Live app : http://www.2choix.com
 
