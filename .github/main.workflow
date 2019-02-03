@@ -1,6 +1,11 @@
-workflow "Build and deploy web on push" {
+workflow "Build and deploy web on release" {
   resolves = ["Azure Deploy", "Lint Web"]
   on = "release"
+}
+
+workflow "Build and test on push" {
+  resolves = ["Build Web", "Lint Web"]
+  on = "push"
 }
 
 action "Install Web" {
