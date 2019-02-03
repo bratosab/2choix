@@ -1,0 +1,20 @@
+:host {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.choix-navbar {
+  padding: 8px 16px;
+}
+
+.site-title {
+  .site-logo {
+    margin: 0 4px 3px 0;
+    height: 26px;
+    width: 26px;
+    font-size: 26px;
+  }
+}

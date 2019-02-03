@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+@import './variables';
+
+@import '../app/shared/navbar/navbar-theme';
+
+// Include non-theme styles for core.
+@include mat-core();
+
+// Include theme styles for Angular Material components.
+@include angular-material-theme($theme);
+
+// Include theme styles for custom components.
+@include nav-bar-theme($theme);

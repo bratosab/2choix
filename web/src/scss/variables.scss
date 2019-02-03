@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+// Custom theme for 2choix.com
+$primary: mat-palette($mat-deep-purple);
+$accent: mat-palette($mat-green, A200, A100, A400);
+$warn: mat-palette($mat-red);
+$theme: mat-dark-theme($primary, $accent, $warn);
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);

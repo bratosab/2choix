@@ -1,0 +1,11 @@
+@mixin nav-bar-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  app-navbar {
+    color: mat-color($primary, default-contrast);
+
+    .choix-navbar {
+      background: mat-color($primary);
+    }
+  }
+}
